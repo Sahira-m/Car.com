@@ -8,12 +8,8 @@ export const makeNewUser = async (request: Request, response: Response) => {
   try {
     const newUser = new User({
       userName: request.body.name,
-      age: request.body.age,
-      address: request.body.address,
-      wifeName: request.body.wifeName,
-      childreName: request.body.childreName,
-      isAlive: request.body.isAlive,
-      purchaseDate: request.body.purchaseDate,
+      email: request.body.email,
+      password: request.body.password,
     });
     const newUsers = await UserService.createUser(newUser);
     response.json(newUsers);
