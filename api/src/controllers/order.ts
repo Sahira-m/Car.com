@@ -6,7 +6,7 @@ export const makeNewOrder = async (request: Request, response: Response) => {
     const newUser = new Order({
       date: request.body.date,
       userId: request.params.userId,
-      productOrder: request.body.productOrder,
+      productId: request.body.productId,
       quantity: request.body.quantity,
     });
     const newUsers = await OrderService.createOrder(newUser);

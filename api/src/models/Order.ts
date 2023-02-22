@@ -8,7 +8,7 @@ export type OrderDocument = Document & {
   date: Date;
   userId: string;
   //productOrder: [];
-  productOrder: [{ productId: string; quantity: number }];
+  productId: [{ productId: string; quantity: number }];
   //quantity: number;
 };
 const OrderSchema = new mongoose.Schema({
@@ -21,7 +21,7 @@ const OrderSchema = new mongoose.Schema({
     ref: User,
   },
   /* productOrder: [{ type: ProdcutSchema }], */
-  productOrder: {
+  productId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: Product,
   },
