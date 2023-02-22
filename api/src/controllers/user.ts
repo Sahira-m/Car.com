@@ -4,12 +4,19 @@ import UserService from "../services/users";
 import jwt from "jsonwebtoken";
 // dotenv import
 import dotenv from "dotenv";
+//hash code
+import bcrypt from "bcrypt";
 export const makeNewUser = async (request: Request, response: Response) => {
   try {
+    //new code for encode password
+    const { name, email, password } = request.body;
+    const saltRounds = 10;
+    const hashPassword = await bcrypt.hash(password, saltRounds);
+    //3 line of code above for hash password
     const newUser = new User({
-      userName: request.body.name,
-      email: request.body.email,
-      password: request.body.password,
+      userName: name,
+      email: email,
+      password: hashPassword,
     });
     //new code for checking the user exist or not by using email
     const isEmailExist = await UserService.getUserByEmail(request.body.email);
@@ -34,6 +41,14 @@ export const getUserByEmail = async (request: Request, response: Response) => {
       response.json({
         massage: `The email ${request.body.email} doesn't exist`,
       });
+      return;
+    }
+    //Decrypt Hash password
+    const databasePassword = userData.password;
+    const inputPassword = request.body.password;
+    const match = await bcrypt.compare(inputPassword, databasePassword);
+    if (!match) {
+      response.json("The password does not exist!");
       return;
     }
     //TOKEN
