@@ -5,9 +5,6 @@ const createOrder = async (order: OrderDocument): Promise<OrderDocument> => {
   return order.save();
 };
 
-const getAllOrder = async (): Promise<OrderDocument[]> => {
-  return Order.find();
-};
 const getOrderByID = async (Id: string): Promise<OrderDocument | null> => {
   return Order.findById(Id);
 };
@@ -27,6 +24,5 @@ export default {
   createOrder,
   updateOrder,
   deleteOrderById,
-  getAllOrder,
   getOrderByID,
 };

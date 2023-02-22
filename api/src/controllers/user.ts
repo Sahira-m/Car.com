@@ -1,6 +1,6 @@
-import { request, Request, Response } from "Express";
+import { Request, Response } from "Express";
 import User from "../models/User";
-import UserService from "../services/user";
+import UserService from "../services/users";
 import jwt from "jsonwebtoken";
 // dotenv import
 import dotenv from "dotenv";
@@ -11,6 +11,13 @@ export const makeNewUser = async (request: Request, response: Response) => {
       email: request.body.email,
       password: request.body.password,
     });
+    //new code for checking the user exist or not by using email
+    const isEmailExist = await UserService.getUserByEmail(request.body.email);
+    if (isEmailExist) {
+      response.json(`The email already ${request.body.email} exist`);
+      return;
+    }
+
     const newUsers = await UserService.createUser(newUser);
     response.json(newUsers);
   } catch (error) {
@@ -41,28 +48,7 @@ export const getUserByEmail = async (request: Request, response: Response) => {
   }
 };
 
-export const deleteUserById = async (request: Request, response: Response) => {
-  try {
-    const getProdctById = await UserService.getUserByEmail(
-      request.params.email
-    );
-    if (getProdctById) {
-      const deleteProdct = await UserService.deleteByEmail(
-        request.params.userId
-      );
-
-      const getUser = await UserService.getUser();
-      response.status(200).json(getUser);
-    } else response.json("The id doesn't exist");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateUserByName = async (
-  request: Request,
-  response: Response
-) => {
+export const updateUserById = async (request: Request, response: Response) => {
   try {
     const update = await UserService.updateById(
       request.params.userId,

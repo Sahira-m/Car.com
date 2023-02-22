@@ -6,13 +6,19 @@ import ProductService from "../services/products";
 export const createProduct = async (req: Request, res: Response) => {
   try {
     const newProduct = new Product({
-      name: req.body.name,
-      productType: req.body.productType,
+      productName: req.body.name,
       price: req.body.price,
-      isStock: req.body.isStock,
-      stockDate: req.body.stockDate,
-      size: req.body.stockDate,
+      inStock: req.body.inStock,
+      color: req.body.color,
+      category: req.body.category,
+      quantity: req.body.quantity,
+      image: req.body.image,
     });
+    const isCarNameExist = await ProductService.getProductByName(req.body.name);
+    if (isCarNameExist) {
+      res.json("The car name exist");
+      return;
+    }
     const product = await ProductService.createProduct(newProduct);
     res.json(product);
   } catch (error) {
@@ -62,7 +68,6 @@ export const updateProductByID = async (
       request.params.pid,
       request.body
     );
-
     response.json(updateProduct);
   } catch (error) {
     console.log(error);

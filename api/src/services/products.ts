@@ -11,6 +11,13 @@ const createProduct = async (
 const getProductAll = async (): Promise<ProductDocument[]> => {
   return Product.find();
 };
+
+const getProductByName = async (
+  productName: string
+): Promise<ProductDocument[] | null> => {
+  return Product.findOne({ productName: productName });
+};
+
 const getProductByID = async (Id: string): Promise<ProductDocument | null> => {
   return Product.findById(Id);
 };
@@ -34,4 +41,5 @@ export default {
   getProductByID,
   deleteProductById,
   updateProduct,
+  getProductByName,
 };
