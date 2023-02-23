@@ -4,10 +4,11 @@ import OrderService from "../services/order";
 export const makeNewOrder = async (request: Request, response: Response) => {
   try {
     const newUser = new Order({
-      date: request.body.date,
+      //date: request.body.date,
       userId: request.params.userId,
-      productId: request.body.productId,
-      quantity: request.body.quantity,
+      order: [
+        { productId: request.body.productId, quantity: request.body.quantity },
+      ],
     });
     const newUsers = await OrderService.createOrder(newUser);
     response.json(newUsers);

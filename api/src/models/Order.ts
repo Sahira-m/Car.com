@@ -9,7 +9,6 @@ export type OrderDocument = Document & {
   userId: string;
   //productOrder: [];
   order: [{ productId: string; quantity: number }];
-  //quantity: number;
 };
 const OrderSchema = new mongoose.Schema({
   date: {
@@ -28,7 +27,10 @@ const OrderSchema = new mongoose.Schema({
         ref: Product,
       },
 
-      quantity: { type: Number },
+      quantity: {
+        type: Number,
+        default: 1,
+      },
     },
   ],
 });

@@ -14,7 +14,7 @@ router.get("/:id", getOrderByid); */
 
 router.post(
   "/:userId",
-  passport.authenticate("jwt", { session: false }),
+  //passport.authenticate("jwt", { session: false }),
   makeNewOrder
 );
 router.get(
