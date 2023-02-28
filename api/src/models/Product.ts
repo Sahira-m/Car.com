@@ -9,7 +9,7 @@ export type ProductDocument = Document & {
   color: string;
   category: string;
   quantity: number;
-  image: String;
+  image: string;
 };
 export const ProdcutSchema = new moongose.Schema({
   productName: {
@@ -28,6 +28,6 @@ export const ProdcutSchema = new moongose.Schema({
   color: String,
   category: String,
   quantity: Number,
-  image: String,
+  productImage: String,
 });
 export default mongoose.model<ProductDocument>("Product", ProdcutSchema);

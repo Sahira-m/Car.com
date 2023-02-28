@@ -14,17 +14,17 @@ router.get("/:id", getOrderByid); */
 
 router.post(
   "/:userId",
-  //passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   makeNewOrder
 );
 router.get(
   "/:userId",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   getOrderByid
 );
 router.delete(
   "/:userId",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   deleteOrderById
 );
 export default router;

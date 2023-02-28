@@ -14,19 +14,26 @@ export const makeNewUser = async (request: Request, response: Response) => {
     const hashPassword = await bcrypt.hash(password, saltRounds);
     //3 line of code above for hash password
     const newUser = new User({
-      userName: name,
+      name: name,
       email: email,
       password: hashPassword,
     });
     //new code for checking the user exist or not by using email
     const isEmailExist = await UserService.getUserByEmail(request.body.email);
     if (isEmailExist) {
-      response.json(`The email already ${request.body.email} exist`);
+      response
+        .status(400)
+        .json(`The email already ${request.body.email} exist`);
       return;
     }
 
     const newUsers = await UserService.createUser(newUser);
-    response.json(newUsers);
+
+    response.status(200).json({
+      data: newUsers,
+      success: true,
+      message: "newUser created",
+    });
   } catch (error) {
     console.log(error);
   }
@@ -38,7 +45,7 @@ export const getUserByEmail = async (request: Request, response: Response) => {
   try {
     const userData = await UserService.getUserByEmail(request.body.email);
     if (!userData) {
-      response.json({
+      response.status(401).json({
         massage: `The email ${request.body.email} doesn't exist`,
       });
       return;
@@ -57,7 +64,7 @@ export const getUserByEmail = async (request: Request, response: Response) => {
       JWT_SECRET,
       { expiresIn: "1h" }
     );
-    response.json({ userData, token });
+    response.status(200).json({ userData, token });
   } catch (error) {
     console.log(error);
   }
@@ -69,7 +76,12 @@ export const updateUserById = async (request: Request, response: Response) => {
       request.params.userId,
       request.body
     );
-    response.json(update);
+    // response.json(update);
+    response.status(200).json({
+      data: update,
+      success: true,
+      message: "Updated Successfully",
+    });
   } catch (error) {
     console.log(error);
   }

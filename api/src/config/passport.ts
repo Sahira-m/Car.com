@@ -14,7 +14,9 @@ export const JwtStrategys = new JwtStrategy(
     //payload-- body
     //body-- go to controller
     const email = payload.email;
+    console.log("email is", email);
     const foundUser = await UserService.getUserByEmail(email);
+    console.log("user is", foundUser);
     if (!foundUser) {
       return "no user";
     }

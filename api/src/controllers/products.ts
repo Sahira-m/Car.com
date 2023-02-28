@@ -3,24 +3,29 @@ import { Request, Response } from "Express";
 import Product from "../models/Product";
 import ProductService from "../services/products";
 
-export const createProduct = async (req: Request, res: Response) => {
+export const createProduct = async (request: Request, response: Response) => {
   try {
+    const { productName, price, inStock, color, category, quantity, image } =
+      request.body;
     const newProduct = new Product({
-      productName: req.body.name,
-      price: req.body.price,
-      inStock: req.body.inStock,
-      color: req.body.color,
-      category: req.body.category,
-      quantity: req.body.quantity,
-      image: req.body.image,
+      productName: productName,
+      price: price,
+      inStock: inStock,
+      color: color,
+      category: category,
+      quantity: quantity,
+      image: image,
     });
-    const isCarNameExist = await ProductService.getProductByName(req.body.name);
+    console.log("Product is", newProduct);
+    const isCarNameExist = await ProductService.getProductByName(productName);
     if (isCarNameExist) {
-      res.json("The car name exist");
+      console.log("Product is", isCarNameExist);
+      response.json("The car name exist");
       return;
     }
+
     const product = await ProductService.createProduct(newProduct);
-    res.json(product);
+    response.json(product);
   } catch (error) {
     console.log(error);
   }
@@ -64,6 +69,7 @@ export const updateProductByID = async (
   response: Response
 ) => {
   try {
+    console.log("updates", request.body);
     const updateProduct = await ProductService.updateProduct(
       request.params.pid,
       request.body

@@ -1,0 +1,37 @@
+.user {
+  margin-top: 50px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.title {
+  top: 80px;
+  margin-left: 100px;
+  align-items: center;
+  justify-content: center;
+  color: darkblue;
+  gap: 0px;
+}
+.labels {
+  color: darkblue;
+}
+.error-message {
+  color: red;
+}
+.button1 {
+  background-color: rgb(24, 53, 196);
+  height: 30px;
+  width: 250px;
+}
+.text {
+  width: 250px;
+  height: 30px;
+}
+.error-msg {
+  color: red;
+}
+.radio {
+  color: white;
+  background-color: aliceblue;
+}

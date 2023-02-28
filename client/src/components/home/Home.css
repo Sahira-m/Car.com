@@ -1,0 +1,15 @@
+.homes {
+  margin-left: 50px;
+}
+.home-text {
+  position: fixed;
+  top: 240px;
+  left: 200px;
+  text-align: left;
+}
+.home-frame {
+  position: absolute;
+  top: 100px;
+  height: 10000px;
+  width: 10000px;
+}

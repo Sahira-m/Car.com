@@ -1,0 +1,26 @@
+.main1 {
+  margin-top: 50px;
+  display: grid;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.error-message {
+  color: red;
+}
+
+.text {
+  width: 400px;
+  height: 30px;
+}
+.error-msg {
+  color: red;
+}
+.title {
+  top: 80px;
+  margin-left: 100px;
+  align-items: center;
+  justify-content: center;
+  color: darkblue;
+}
