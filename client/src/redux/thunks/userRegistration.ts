@@ -13,8 +13,8 @@ export function userRegistrationThunk(user: UserType) {
       await axios.post(url, user).then((res) => {
         if (res.status === 200) {
           dispatch(userActions.registerUser(true));
-          localStorage.setItem("user", res.data);
-          localStorage.getItem("user");
+          // localStorage.setItem("user", res.data);
+          // localStorage.getItem("user");
         }
       });
     } catch (error) {

@@ -115,11 +115,11 @@ export default function UserRegistration() {
               <div>
                 <TextField
                   required
-                  name="confirm password"
+                  name="confirmPassword"
                   label="Confirm Password"
                   onChange={handleChange}
                   value={values.confirmPassword}
-                  type="password"
+                  type="passwordcd"
                 />
                 <Typography className="error-msg">
                   {errors.confirmPassword && touched.confirmPassword ? (
