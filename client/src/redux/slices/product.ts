@@ -8,6 +8,7 @@ type stateType = {
   favouriteList: ProductType[];
   cartList: ProductType[];
   productDetail: ProductType;
+  productListFilter: ProductType[];
 };
 const initialState: stateType = {
   productList: [],
@@ -25,6 +26,7 @@ const initialState: stateType = {
     quantity: 1,
     image: "",
   },
+  productListFilter: [],
 };
 const favouriteItems =
   localStorage.getItem("favorites") !== null
@@ -46,6 +48,12 @@ const productSlice = createSlice({
     //get product data
     getProductData: (state, action) => {
       state.productList = action.payload;
+      console.log("get product  data", state.productList);
+      state.loading = false;
+    },
+    getProductFilterData: (state, action) => {
+      state.productListFilter = action.payload;
+      console.log("get product filter data", state.productListFilter);
       state.loading = false;
     },
     getProductDetails: (state, action) => {

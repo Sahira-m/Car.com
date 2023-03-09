@@ -1,0 +1,26 @@
+.order3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+/* nows*/
+.order2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.order1 {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.order-list {
+  width: 50%;
+  height: 60%;
+}
+.order-comp {
+  background-color: rgb(235, 224, 224);
+}
+.total {
+  margin-left: 250px;
+  font-size: x-large;
+}

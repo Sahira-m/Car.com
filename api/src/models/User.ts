@@ -8,7 +8,7 @@ export type UserDocument = Document & {
 const UserSchema = new mongoose.Schema({
   name: { type: String },
   password: { type: String },
-  email: { type: String, unique: true },
+  email: { type: String },
 });
 
 export default mongoose.model<UserDocument>("User", UserSchema);

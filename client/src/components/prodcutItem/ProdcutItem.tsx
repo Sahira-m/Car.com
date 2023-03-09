@@ -10,11 +10,13 @@ import Typography from "@mui/material/Typography";
 import { Alert, Snackbar } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
-import { productActions } from "../../redux/slices/product";
+
 import { useState } from "react";
 import { RootState } from "../../redux/store";
 import { Link } from "react-router-dom";
-
+//new
+import { cartActions } from "../../redux/slices/cart";
+import { productActions } from "../../redux/slices/product";
 type PropType = { product: ProductType };
 export default function ProdcutItem({ product }: PropType) {
   const dispatch = useDispatch();
@@ -50,12 +52,22 @@ export default function ProdcutItem({ product }: PropType) {
 
     setOpenCart(false);
   };
-
+  //new code test
+  const addToCart = () => {
+    console.log("product", product);
+    const dis = dispatch(cartActions.addToCart(product));
+    console.log("disp", dis);
+    handleClickCart();
+  };
+  const addToFavourite = () => {
+    dispatch(productActions.addToFavorite(product));
+    handleClick();
+  };
   return (
-    <div>
+    <div className="product-item">
       <Card
         sx={{
-          width: 280,
+          width: 350,
           my: 5,
           display: "flex",
           flexDirection: "column",
@@ -85,8 +97,12 @@ export default function ProdcutItem({ product }: PropType) {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-          <Button size="small">Add to cart</Button>
-          <Button size="small">Add to favorite</Button>
+          <Button size="small" onClick={addToCart}>
+            Add to cart
+          </Button>
+          <Button size="small" onClick={addToFavourite}>
+            Add to favorite
+          </Button>
         </CardActions>
       </Card>
       <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>

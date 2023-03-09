@@ -17,7 +17,7 @@ const deleteByEmail = async (email: string): Promise<UserDocument | null> => {
   return User.findByIdAndRemove(email);
 };
 
-const updateById = async (
+const updateByEmail = async (
   userId: String,
   userUpdates: UserDocument
 ): Promise<UserDocument | null> => {
@@ -28,6 +28,6 @@ export default {
   createUser,
   getUser,
   deleteByEmail,
-  updateById,
+  updateByEmail,
   getUserByEmail,
 };

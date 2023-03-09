@@ -1,5 +1,4 @@
 // product thunk here
-
 import { AppDispatch } from "../store";
 import { productActions } from "../slices/product";
 import { port } from "../../common/port";

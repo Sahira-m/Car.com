@@ -1,4 +1,4 @@
-.homes {
+/*.homes {
   margin-left: 50px;
 }
 .home-text {
@@ -12,4 +12,55 @@
   top: 100px;
   height: 10000px;
   width: 10000px;
+}*/
+
+.home {
+  position: relative;
+  height: 850px;
+  overflow: hidden;
+}
+.home-video {
+  background-color: black;
+  position: absolute;
+  width: 100%;
+}
+
+.home-text {
+  position: absolute;
+  top: 240px;
+  left: 200px;
+  text-align: left;
+}
+.home-text h3 {
+  font-size: 40px;
+  color: #fff;
+  font-weight: normal;
+}
+.home-text h1 {
+  font-size: 70px;
+  color: #ec5320;
+}
+.home-text h1 > span {
+  color: #1f9aeb;
+}
+.home-text p {
+  color: #c0acac;
+  font-size: 25px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.home-start span {
+  display: inline-block;
+  position: relative;
+
+  color: lightgray;
+  margin-left: 40px;
+}
+
+.home-start span:before {
+  position: absolute;
+  opacity: 0;
+  top: -25px;
+  right: 21px;
+  transition: 0.3s;
 }

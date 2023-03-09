@@ -1,10 +1,11 @@
-.main1 {
+.user-reg {
   margin-top: 50px;
   display: grid;
   gap: 15px;
   align-items: center;
   justify-content: center;
   color: white;
+  background-image: url("../../assets/login.jpg");
 }
 .error-message {
   color: red;
@@ -23,4 +24,14 @@
   align-items: center;
   justify-content: center;
   color: darkblue;
+}
+.show1 {
+  position: absolute;
+  top: 350px;
+  left: 810px;
+}
+.show2 {
+  position: absolute;
+  top: 425px;
+  left: 810px;
 }

@@ -1,0 +1,47 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  height: min-content;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+/* TEXTS */
+.footer-text {
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  margin-top: 30px;
+}
+/* VEHICLES */
+.vehicles {
+  display: flex;
+  flex-direction: column;
+}
+/* HELPFUL LINKS */
+.helpful-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.copyright-field1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.copyright-field2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}

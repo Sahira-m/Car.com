@@ -7,8 +7,8 @@ export default function UserDetail() {
       : null;
 
   return (
-    <div className="main2">
-      <h3> User details is</h3>
+    <div className="detail">
+      <h3> User details </h3>
       <p>NAME:{userDetails.userData.name}</p>
       <p>Email:{userDetails.userData.email}</p>
     </div>

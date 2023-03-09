@@ -1,20 +1,17 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-
 import Typography from "@mui/material/Typography";
-import { TextField, Button } from "@mui/material";
-
+import { TextField, Button, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import { UserType } from "../../common/userType";
-import "./UserRegistration.css";
-
 import { userRegistrationThunk } from "../../redux/thunks/userRegistration";
-
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import "./UserRegistration.css";
 //schema
 const signUpSchema = Yup.object().shape({
   name: Yup.string(),
@@ -32,6 +29,7 @@ const signUpSchema = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Passwords must match"),
 });
 const initialValues = {
+  _id: "",
   name: "",
   email: "",
   password: "",
@@ -39,7 +37,9 @@ const initialValues = {
 };
 
 export default function UserRegistration() {
-  const message = useSelector((state: RootState) => state.user.isRegister);
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+  const isRegister = useSelector((state: RootState) => state.user.isRegister);
   //const [open, setOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -52,12 +52,16 @@ export default function UserRegistration() {
     if (user) {
       dispatch(userRegistrationThunk(user));
     }
-    if (message) {
+    if (isRegister) {
       navigate("/login");
-      console.log("message", message);
     }
   };
-
+  const showPasswordHandler1 = () => {
+    setShowPassword1(!showPassword1);
+  };
+  const showPasswordHandler2 = () => {
+    setShowPassword2(!showPassword2);
+  };
   //self code
   return (
     <Formik
@@ -69,7 +73,7 @@ export default function UserRegistration() {
       {({ values, errors, touched, handleChange }) => {
         return (
           <Form>
-            <div className="main1">
+            <div className="user-reg">
               <div>
                 <h3 className="title">Registration</h3>
 
@@ -103,8 +107,19 @@ export default function UserRegistration() {
                   label="Password"
                   onChange={handleChange}
                   value={values.password}
-                  type="password"
+                  type={showPassword1 ? "text" : "password"}
                 />
+                <span className="show1">
+                  {showPassword1 ? (
+                    <IconButton onClick={showPasswordHandler1}>
+                      <VisibilityOff />
+                    </IconButton>
+                  ) : (
+                    <IconButton onClick={showPasswordHandler1}>
+                      <Visibility />
+                    </IconButton>
+                  )}
+                </span>
                 <Typography className="error-msg">
                   {errors.password && touched.password ? (
                     <div className="error-message">{errors.password}</div>
@@ -119,8 +134,20 @@ export default function UserRegistration() {
                   label="Confirm Password"
                   onChange={handleChange}
                   value={values.confirmPassword}
-                  type="passwordcd"
+                  type={showPassword2 ? "text" : "password"}
                 />
+                <span className="show2">
+                  {showPassword2 ? (
+                    <IconButton onClick={showPasswordHandler2}>
+                      <VisibilityOff />
+                    </IconButton>
+                  ) : (
+                    <IconButton onClick={showPasswordHandler2}>
+                      <Visibility />
+                    </IconButton>
+                  )}
+                </span>
+
                 <Typography className="error-msg">
                   {errors.confirmPassword && touched.confirmPassword ? (
                     <div className="error-message">
@@ -132,6 +159,13 @@ export default function UserRegistration() {
               <Button variant="contained" type="submit">
                 Register
               </Button>
+              <div>
+                {isRegister ? (
+                  <Typography>Registered Successfully</Typography>
+                ) : (
+                  <Typography>Not Registered </Typography>
+                )}
+              </div>
             </div>
           </Form>
         );

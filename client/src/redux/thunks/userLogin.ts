@@ -2,7 +2,6 @@ import { AppDispatch } from "../store";
 import { userActions } from "../slices/user";
 import { port } from "../../common/port";
 import axios from "axios";
-import { UserType } from "../../common/userType";
 const Port = port;
 type InputType = { email: string; password: string | RegExp };
 export function userLoginThunk(user: InputType) {
@@ -17,6 +16,8 @@ export function userLoginThunk(user: InputType) {
           dispatch(userActions.getUser);
           dispatch(userActions.loginHandler(true));
           localStorage.setItem("user", JSON.stringify(res.data));
+          const userId = res.data.userData._id;
+          localStorage.setItem("userIdnew", userId);
           console.log(res.status, "status in thunk login");
         }
       });

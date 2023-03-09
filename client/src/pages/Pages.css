@@ -1,0 +1,10 @@
+.user-update {
+  display: flex;
+  flex-direction: column;
+}
+.user-det {
+  float: left;
+}
+.user-update-form {
+  float: right;
+}

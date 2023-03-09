@@ -1,22 +1,30 @@
 import { Request, Response } from "Express";
 import Order from "../models/Order";
 import OrderService from "../services/order";
+import User from "../models/User";
+import mongoose from "mongoose";
 export const makeNewOrder = async (request: Request, response: Response) => {
   try {
-    const { productId, quantity } = request.body;
-    const newUser = new Order({
-      //date: request.body.date,
-      /* userId: request.params.userId,
-      order: [
-        { productId: request.body.productId, quantity: request.body.quantity },
-      ],
-*/
+    const { productId, quantity, address, total, isDelivered } = request.body;
 
-      userId: request.params.userId,
-      order: [{ productId: productId, quantity: quantity }],
+    const users = await User.findById(request.params.userId);
+
+    if (!users) {
+      return response.status(404).json("Something went wrong. Did you login?");
+    }
+
+    const newOrder = new Order({
+      userId: users._id,
+      order: [
+        {
+          productId: productId,
+          quantity: quantity,
+        },
+      ],
+      ...request.body,
     });
-    const newUsers = await OrderService.createOrder(newUser);
-    response.json(newUsers);
+    const newOrders = await OrderService.createOrder(newOrder);
+    response.status(200).json(newOrders);
   } catch (error) {
     console.log(error);
   }
@@ -24,7 +32,10 @@ export const makeNewOrder = async (request: Request, response: Response) => {
 
 export const getOrderByid = async (request: Request, response: Response) => {
   try {
-    const getAlls = await OrderService.getOrderByID(request.params.userId);
+    const userId = request.params.userId as unknown as mongoose.ObjectId;
+    console.log(request.params.userId, "get uid");
+    const getAlls = await OrderService.getOrderByID(userId);
+    console.log(getAlls, "get");
     response.json(getAlls);
   } catch (error) {
     console.log(error);
@@ -33,7 +44,8 @@ export const getOrderByid = async (request: Request, response: Response) => {
 
 export const deleteOrderById = async (request: Request, response: Response) => {
   try {
-    const getOrderByID = await OrderService.getOrderByID(request.params.userId);
+    const userId = request.params.userId as unknown as mongoose.ObjectId;
+    const getOrderByID = await OrderService.getOrderByID(userId);
     if (getOrderByID) {
       const deleteProdct = await OrderService.deleteOrderById(
         request.params.userId

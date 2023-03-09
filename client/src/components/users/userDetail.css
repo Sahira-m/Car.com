@@ -1,4 +1,4 @@
-.main2 {
+.detail {
   margin-top: 30px;
   margin-left: 50px;
   row-gap: 0px;
@@ -7,4 +7,7 @@
   border: 1px;
   border-color: black;
   color: black;
+}
+.detail h3 {
+  color: darkblue;
 }

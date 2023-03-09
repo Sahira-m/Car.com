@@ -6,11 +6,13 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 //hash code
 import bcrypt from "bcrypt";
+const saltRounds = 10;
 export const makeNewUser = async (request: Request, response: Response) => {
   try {
     //new code for encode password
     const { name, email, password } = request.body;
-    const saltRounds = 10;
+
+    //const saltRounds = 10;
     const hashPassword = await bcrypt.hash(password, saltRounds);
     //3 line of code above for hash password
     const newUser = new User({
@@ -18,6 +20,7 @@ export const makeNewUser = async (request: Request, response: Response) => {
       email: email,
       password: hashPassword,
     });
+
     //new code for checking the user exist or not by using email
     const isEmailExist = await UserService.getUserByEmail(request.body.email);
     if (isEmailExist) {
@@ -72,10 +75,19 @@ export const getUserByEmail = async (request: Request, response: Response) => {
 
 export const updateUserById = async (request: Request, response: Response) => {
   try {
-    const update = await UserService.updateById(
+    console.log("iam h ere1");
+    //new code for encode password
+    const { name, email, password } = request.body;
+    console.log("update user2", request.body);
+    const hashPassword = await bcrypt.hash(password, saltRounds);
+    request.body.password = hashPassword;
+    console.log("update user3", request.body);
+    const update = await UserService.updateByEmail(
       request.params.userId,
       request.body
     );
+    //console.log("update user", updateUser);
+    console.log("req user", request.body);
     // response.json(update);
     response.status(200).json({
       data: update,
