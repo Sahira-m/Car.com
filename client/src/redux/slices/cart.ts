@@ -2,11 +2,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductType } from "../../common/productType";
 
-/* const favouriteItems =
-  localStorage.getItem("favorites") !== null
-    ? JSON.parse(localStorage.getItem("favorites") as string)
-    : []; */
-
 const cartItems =
   localStorage.getItem("cart") !== null
     ? JSON.parse(localStorage.getItem("cart") as string)
@@ -16,11 +11,13 @@ type InitialType = {
   products: ProductType[];
   carts: ProductType[];
   totalPrice: number;
+  isAddToCart: boolean;
 };
 const initialState: InitialType = {
   products: [],
   carts: cartItems,
   totalPrice: 0,
+  isAddToCart: false,
 };
 
 const cartSlice = createSlice({
@@ -28,22 +25,20 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<ProductType>) {
-      //console.log("inside thunk", action.payload);
       const index = state.carts.findIndex(
         (item) => item._id === action.payload._id
       );
 
       if (index === -1) {
-        //action.payload.quantity = 1;
         state.carts.push(action.payload);
-        // console.log("inside thunk", action.payload);
+        state.isAddToCart = true;
         localStorage.setItem("cart", JSON.stringify(state.carts));
       } else {
+        state.isAddToCart = false;
         state.carts[index].quantity++;
         const cart = JSON.parse(localStorage.getItem("cart") as string);
         cart[index].quantity = state.carts[index].quantity;
         localStorage.setItem("cart", JSON.stringify(state.carts));
-        // console.log("inside thunk", action.payload);
       }
     },
     getAllFromCart: (state, action) => {

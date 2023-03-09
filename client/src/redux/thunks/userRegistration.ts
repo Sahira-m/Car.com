@@ -26,7 +26,6 @@ export function userRegistrationThunk(user: UserType) {
 }
 
 //new code for updates
-
 export function userUpdationThunk(user: UserType) {
   const userDetails =
     localStorage.getItem("user") !== null
@@ -39,7 +38,9 @@ export function userUpdationThunk(user: UserType) {
   console.log("values for update", user);
   return async (dispatch: AppDispatch) => {
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
+      const token = localStorage.getItem("userToken");
+
+      const config = { headers: { Authorization: `Bearer ${token}` } };
       await axios.put(url, user, config).then((res) => {
         if (res.status === 200) {
           dispatch(userActions.updateUser(true));

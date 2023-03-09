@@ -7,10 +7,11 @@ const url = `http://localhost:${Port}/products`;
 export function fetchProducts() {
   return async (dispatch: AppDispatch) => {
     try {
-      dispatch(productActions.getProductRequst);
+      dispatch(productActions.getProductRequst(true));
       setTimeout(async () => {
         const response = await fetch(url);
         const productDetails = await response.json();
+
         dispatch(productActions.getProductData(productDetails));
       }, 1000);
     } catch (error) {

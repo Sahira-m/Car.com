@@ -8,21 +8,25 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Alert, Snackbar } from "@mui/material";
-
-import { useDispatch, useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { RootState } from "../../redux/store";
 import { Link } from "react-router-dom";
-//new
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 import { cartActions } from "../../redux/slices/cart";
 import { productActions } from "../../redux/slices/product";
+
 type PropType = { product: ProductType };
+
 export default function ProdcutItem({ product }: PropType) {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const isAddToFavourite = useSelector(
+    (state: RootState) => state.product.isAddToFavourate
+  );
+  const isAddToCart = useSelector((state: RootState) => state.cart.isAddToCart);
   const handleClick = () => {
     setOpen(true);
   };
@@ -52,7 +56,7 @@ export default function ProdcutItem({ product }: PropType) {
 
     setOpenCart(false);
   };
-  //new code test
+
   const addToCart = () => {
     console.log("product", product);
     const dis = dispatch(cartActions.addToCart(product));
@@ -67,21 +71,21 @@ export default function ProdcutItem({ product }: PropType) {
     <div className="product-item">
       <Card
         sx={{
-          width: 350,
+          width: 280,
           my: 5,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          boxShadow: "0 0 20px #e0e0e0",
+          boxShadow: "0 0 20px #E0E0E0",
         }}>
         <Link to={`/productDetail/${product._id}`}>
           <CardMedia
-            sx={{
-              height: 300,
-              width: "fit-content",
-              padding: "20px",
-              margin: "0 auto",
+            style={{
+              width: 210,
+              height: 270,
+              marginTop: "15px",
+              cursor: "default",
             }}
             src={product.image}
             component="img"
@@ -105,22 +109,50 @@ export default function ProdcutItem({ product }: PropType) {
           </Button>
         </CardActions>
       </Card>
-      <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          {product.productName} is already added to favorite!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={openCart}
-        autoHideDuration={3000}
-        onClose={handleCloseCart}>
-        <Alert
-          onClose={handleCloseCart}
-          severity="success"
-          sx={{ width: "100%" }}>
-          added to cart!
-        </Alert>
-      </Snackbar>
+      {isAddToFavourite ? (
+        <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}>
+            {product.productName} is added to favorite!
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar open={open} autoHideDuration={2500} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="warning"
+            sx={{ width: "100%" }}>
+            {product.productName} is already in favorite!
+          </Alert>
+        </Snackbar>
+      )}
+      {isAddToCart ? (
+        <Snackbar
+          open={openCart}
+          autoHideDuration={3000}
+          onClose={handleCloseCart}>
+          <Alert
+            onClose={handleCloseCart}
+            severity="success"
+            sx={{ width: "100%" }}>
+            added to cart!
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar
+          open={openCart}
+          autoHideDuration={3000}
+          onClose={handleCloseCart}>
+          <Alert
+            onClose={handleCloseCart}
+            severity="warning"
+            sx={{ width: "100%" }}>
+            The item already exist in cart
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 }

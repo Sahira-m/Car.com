@@ -1,26 +1,21 @@
-.cart-list {
+.favourite-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   padding: 40px 100px;
 }
-.cart-list strong {
+.favourite-list strong {
   color: #d84949;
 }
-.cart-list-warning {
+.favourite-list-warning {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  width: 40%;
-  background-image: url("../../assets/cart1.jpg");
+  width: 20%;
+  background-color: #ce3246;
   padding: 100px 100px;
   margin-top: 50px;
-}
-
-.button1 {
-  color: #d84949;
-  background-color: #4c8ecd;
-  width: 30%;
+  border-radius: 50px;
 }

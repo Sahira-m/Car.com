@@ -77,6 +77,8 @@ export default function UserUpdation() {
     <Formik
       initialValues={initialValues}
       onSubmit={(values: UserType) => {
+        console.log(values);
+        values.email = email;
         userUpdate(values);
       }}
       validationSchema={signUpSchema}>

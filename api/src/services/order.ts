@@ -9,17 +9,15 @@ const createOrder = async (order: OrderDocument): Promise<OrderDocument> => {
 const getOrderByID = async (
   Id: mongoose.ObjectId
 ): Promise<OrderDocument[] | null> => {
-  console.log(Id, "IIIIID");
-
   return Order.find({ userId: Id });
-  // return Order.find()({ userId:${userId}  });
+};
+//for admin only
+const getOrderAll = async (): Promise<OrderDocument[]> => {
+  const aa = Order.find();
+  console.log("all order", aa);
+  return aa;
 };
 
-/* const getOrderListByUserId = async (
-  userId: string
-): Promise<OrderDocument[]> => {
-  return Order.find({ userId: userId });
-}; */
 const deleteOrderById = async (id: string): Promise<OrderDocument | null> => {
   return Order.findByIdAndDelete(id);
 };
@@ -36,4 +34,5 @@ export default {
   updateOrder,
   deleteOrderById,
   getOrderByID,
+  getOrderAll,
 };

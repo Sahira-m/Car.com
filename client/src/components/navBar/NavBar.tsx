@@ -2,12 +2,12 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { Box, IconButton, InputBase, Tooltip, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-import { Badge, BadgeProps, styled } from "@mui/material";
+import { Badge } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import React from "react";
@@ -34,15 +34,11 @@ import Home from "@mui/icons-material/Home";
 import { userActions } from "../../redux/slices/user";
 
 export default function NavBar() {
-  const userEmail: string = "";
   const navigate = useNavigate();
   // MENU
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   //const open = Boolean(anchorEl);
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const cartState = useSelector((state: RootState) => state.cart.carts);
   const favState = useSelector(
@@ -54,10 +50,8 @@ export default function NavBar() {
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-  const handleClose = (event: Event | React.SyntheticEvent) => {
+
+  /* const handleClose = (event: Event | React.SyntheticEvent) => {
     if (
       anchorRef.current &&
       anchorRef.current.contains(event.target as HTMLElement)
@@ -73,7 +67,7 @@ export default function NavBar() {
     } else if (event.key === "Escape") {
       setOpen(false);
     }
-  }
+  } */
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -318,6 +312,11 @@ export default function NavBar() {
           </Box>
 
           <Box sx={{ flexGrow: 1 }} />
+          <IconButton component={Link} to="/cart" color="inherit">
+            <Badge badgeContent={cartState.length} color="error">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
           <Box>
             <div className="navbar-icons">
               <IconButton

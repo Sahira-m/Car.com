@@ -9,6 +9,7 @@ type stateType = {
   cartList: ProductType[];
   productDetail: ProductType;
   productListFilter: ProductType[];
+  isAddToFavourate: boolean;
 };
 const initialState: stateType = {
   productList: [],
@@ -27,23 +28,16 @@ const initialState: stateType = {
     image: "",
   },
   productListFilter: [],
+  isAddToFavourate: false,
 };
-const favouriteItems =
-  localStorage.getItem("favorites") !== null
-    ? JSON.parse(localStorage.getItem("favorites") as string)
-    : [];
 
-const cartItems =
-  localStorage.getItem("cart") !== null
-    ? JSON.parse(localStorage.getItem("cart") as string)
-    : [];
 const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
     //Loading
-    getProductRequst: (state) => {
-      state.loading = true;
+    getProductRequst: (state, action) => {
+      state.loading = action.payload;
     },
     //get product data
     getProductData: (state, action) => {
@@ -69,6 +63,9 @@ const productSlice = createSlice({
           "favorites",
           JSON.stringify(state.favouriteList.map((item) => item))
         );
+        state.isAddToFavourate = true;
+      } else {
+        state.isAddToFavourate = false;
       }
     },
     removeFromFavorite: (state, action) => {

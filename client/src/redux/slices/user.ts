@@ -25,8 +25,6 @@ const userSlice = createSlice({
     getUser: (state, action) => {
       state.user = action.payload;
       localStorage.setItem("userId", action.payload._id);
-      //console.log("action is id", action.payload._id);
-      // console.log("state is", state.user);
     },
     loginHandler: (state, action) => {
       state.isLogin = action.payload;
@@ -37,10 +35,12 @@ const userSlice = createSlice({
     updateUser: (state, action) => {
       state.isUpdate = action.payload;
     },
+
     //ORDER
     createOrder: (state, action) => {
       // const userId = localStorage.getItem("userId");
       state.order = action.payload;
+      console.log("find call me");
     },
   },
 });

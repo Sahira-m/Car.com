@@ -1,24 +1,29 @@
 .order3 {
+  margin-left: 100px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 0px;
 }
 /* nows*/
 .order2 {
+  margin-left: 100px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  gap: 0px;
 }
 
 .order1 {
+  margin-left: 100px;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 10px;
 }
 .order-list {
-  width: 50%;
+  width: 30%;
   height: 60%;
 }
 .order-comp {
-  background-color: rgb(235, 224, 224);
+  background-color: rgb(164, 151, 151);
 }
 .total {
   margin-left: 250px;

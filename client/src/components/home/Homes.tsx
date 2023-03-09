@@ -1,5 +1,4 @@
 import "./Home.css";
-import Back from "../../assets/cars1.png";
 import { Link } from "react-router-dom";
 
 const Homes = () => {
@@ -19,7 +18,7 @@ const Homes = () => {
         </h1>
         <Link to="/products">
           <p className="home-start">
-            Get Started
+            FIND YOUR DREAM CAR
             <span />
           </p>
         </Link>

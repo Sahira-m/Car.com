@@ -12,6 +12,10 @@ export function userLoginThunk(user: InputType) {
       //const config = { headers: { "Content-Type": "application/json" } };
       await axios.post(url, user).then((res) => {
         console.log("user is", user);
+        //token take and set now
+        const token = res.data.token;
+        localStorage.setItem("userToken", token);
+
         if (res.status === 200) {
           dispatch(userActions.getUser);
           dispatch(userActions.loginHandler(true));

@@ -35,7 +35,7 @@ export const getOrderByid = async (request: Request, response: Response) => {
     const userId = request.params.userId as unknown as mongoose.ObjectId;
     console.log(request.params.userId, "get uid");
     const getAlls = await OrderService.getOrderByID(userId);
-    console.log(getAlls, "get");
+
     response.json(getAlls);
   } catch (error) {
     console.log(error);
@@ -53,6 +53,17 @@ export const deleteOrderById = async (request: Request, response: Response) => {
 
       response.status(200).json(getOrderByID);
     } else response.json("The id doesn't exist");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//for admin only
+export const getAllOrder = async (request: Request, response: Response) => {
+  try {
+    const getAlls = await OrderService.getOrderAll;
+    console.log(getAlls, "get");
+    response.json(getAlls);
   } catch (error) {
     console.log(error);
   }

@@ -29,12 +29,12 @@ export default function ProductDetails({ productDetail }: PropType) {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          boxShadow: "0 0 20px #e0e0e0",
+          boxShadow: "0 0 20px #E0E0E0",
         }}>
         <CardMedia
           sx={{
             height: 300,
-            width: "fit-content",
+            width: "max-width",
             padding: "20px",
             margin: "0 auto",
           }}

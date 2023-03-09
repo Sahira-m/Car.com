@@ -2,10 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-// store redux components
-import FavouriteItem from "./FavouriteItem";
 import { RootState } from "../../redux/store";
-
 //mui
 import {
   Table,
@@ -14,11 +11,10 @@ import {
   TableHead,
   TableRow,
   Paper,
-  IconButton,
   Tooltip,
 } from "@mui/material";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import FavoriteItem from "./FavouriteItem";
+import "./FavouriteList.css";
 export default function FavouriteList() {
   const favoriteList = useSelector(
     (state: RootState) => state.product.favouriteList
@@ -26,23 +22,20 @@ export default function FavouriteList() {
   return (
     <div className="cart-list">
       {favoriteList.length === 0 ? (
-        <div className="cart-list-warning">
+        <div className="favourite-list-warning">
           <Tooltip title="Back to products">
             <Link to="/products">
-              <IconButton>
-                <AddShoppingCartOutlinedIcon sx={{ fontSize: "50px" }} />
-              </IconButton>
+              <em>Please add product to the Favourites!</em>
             </Link>
           </Tooltip>
-          <em>Please add product to the Favourites!</em>
         </div>
       ) : (
         <Fragment>
           <h3> Favourite List</h3>
           <TableContainer component={Paper} style={{ marginTop: "50px" }}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 350 }} aria-label="simple table">
               <TableHead>
-                <TableRow sx={{ backgroundColor: "#474747" }}>
+                <TableRow>
                   <TableCell align="center">
                     <strong>Item</strong>
                   </TableCell>

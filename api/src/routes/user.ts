@@ -1,6 +1,5 @@
 // User router here
 import { Router } from "Express";
-//import { Request, Response } from "Express";
 import {
   makeNewUser,
   getUserByEmail,
@@ -15,7 +14,5 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   updateUserById
 );
-/* router.get("/", (req: Request, res: Response) => {
-  res.json("hello");
-}); */
+
 export default router;

@@ -59,15 +59,6 @@ export default function CartList() {
 
     setOpen(false);
   };
-  const CheckOutBTN = styled(Button)({
-    color: "#fff",
-    backgroundColor: "black",
-    border: "none",
-    "&:hover": {
-      backgroundColor: "#adc178",
-      border: "none",
-    },
-  });
 
   const handleClick = () => {
     setOpen(true);
@@ -84,16 +75,12 @@ export default function CartList() {
       : null;
   const newCartList = useSelector((state: RootState) => state.cart.carts);
   console.log("before check out length", newCartList.length);
-  //setCartList(cartLists);
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
   const islogin = useSelector((state: RootState) => state.user.isLogin);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(cartActions.totalPrice());
-    //dispatch(cartActions.getAllFromCart);
-    /* if (open == true) {
-      setCartList(cartLists);
-    } */
+
     if (!islogin) {
       setorder(true);
     } else {
@@ -159,12 +146,9 @@ export default function CartList() {
         <div className="cart-list-warning">
           <Tooltip title="Back to products">
             <Link to="/products">
-              <IconButton>
-                <AddShoppingCartOutlinedIcon sx={{ fontSize: "50px" }} />
-              </IconButton>
+              <p>Please add product to cart!</p>
             </Link>
           </Tooltip>
-          <em>Please add product to cart!</em>
         </div>
       ) : (
         <>
@@ -172,7 +156,7 @@ export default function CartList() {
           <TableContainer component={Paper} style={{ marginTop: "50px" }}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
-                <TableRow sx={{ backgroundColor: "#474747" }}>
+                <TableRow>
                   <TableCell align="center">
                     <strong>Image</strong>
                   </TableCell>
@@ -196,9 +180,13 @@ export default function CartList() {
             </Table>
           </TableContainer>
           <div className="cart-total">
-            <CheckOutBTN variant="outlined" type="submit" onClick={checkOut}>
+            <Button
+              variant="outlined"
+              className="button1"
+              type="submit"
+              onClick={checkOut}>
               Checkout
-            </CheckOutBTN>
+            </Button>
             <p>
               <strong style={{ color: "black" }}>Total Price:</strong>
             </p>

@@ -15,6 +15,10 @@ const orderSlice = createSlice({
     getOrderDetails: (state, action) => {
       state.order = action.payload;
     },
+    //ORDER
+    createOrder: (state, action) => {
+      state.order = action.payload;
+    },
   },
 });
 
