@@ -11,7 +11,6 @@ import Login from "./pages/Login";
 import Orders from "./pages/Orders";
 import NavBar from "./components/navBar/NavBar";
 import Carts from "./pages/Carts";
-import Footer from "./components/footer/Footer";
 
 function App() {
   return (
@@ -30,7 +29,6 @@ function App() {
         <Route path="/cart" element={<Carts />}></Route>
         <Route path="/favourite" element={<Favourites />}></Route>
       </Routes>
-      <Footer />
     </div>
   );
 }

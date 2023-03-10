@@ -1,6 +1,5 @@
 import "./Home.css";
 import { Link } from "react-router-dom";
-
 const Homes = () => {
   const video = require("../../assets/cars1.mp4");
   return (
@@ -10,7 +9,6 @@ const Homes = () => {
           <source src={video} type="video/mp4" />
         </video>
       </div>
-
       <div className="home-text">
         <h3>WELCOME TO</h3>
         <h1>

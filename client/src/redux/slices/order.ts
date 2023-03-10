@@ -3,9 +3,11 @@ import { OrderType } from "../../common/orderType";
 
 type InitialType = {
   order: OrderType[];
+  allOrder: OrderType[];
 };
 const initialState: InitialType = {
   order: [],
+  allOrder: [],
 };
 
 const orderSlice = createSlice({
@@ -14,10 +16,11 @@ const orderSlice = createSlice({
   reducers: {
     getOrderDetails: (state, action) => {
       state.order = action.payload;
+      console.log("get1", action.payload);
     },
-    //ORDER
-    createOrder: (state, action) => {
-      state.order = action.payload;
+    getOrderAllDetails: (state, action) => {
+      state.allOrder = action.payload;
+      console.log("get2", action.payload);
     },
   },
 });

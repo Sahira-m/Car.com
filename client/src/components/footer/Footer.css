@@ -4,6 +4,8 @@
   justify-content: space-around;
   position: relative;
   height: min-content;
+  background: linear-gradient(to right, #97afaa, #34db4a, #4c8ecd, #b88b7c);
+  height: 50px;
 }
 
 .icon {
@@ -12,19 +14,19 @@
   align-items: center;
   margin-top: 20px;
 }
-/* TEXTS */
+
 .footer-text {
   display: flex;
   justify-content: space-around;
   font-weight: bold;
   margin-top: 30px;
 }
-/* VEHICLES */
+
 .vehicles {
   display: flex;
   flex-direction: column;
 }
-/* HELPFUL LINKS */
+
 .helpful-links {
   display: flex;
   flex-direction: column;

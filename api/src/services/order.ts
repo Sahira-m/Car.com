@@ -12,7 +12,7 @@ const getOrderByID = async (
   return Order.find({ userId: Id });
 };
 //for admin only
-const getOrderAll = async (): Promise<OrderDocument[]> => {
+const getOrderAll = async (): Promise<OrderDocument[] | null> => {
   const aa = Order.find();
   console.log("all order", aa);
   return aa;

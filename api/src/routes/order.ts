@@ -8,25 +8,21 @@ import {
 import passport from "passport";
 
 const router = Router();
-/*
-router.post("/:userId", makeNewOrder);
-
-router.get("/:id", getOrderByid); */
 
 router.post(
   "/:userId",
-  passport.authenticate("jwt", { session: false }),
+  //passport.authenticate("jwt", { session: false }),
   makeNewOrder
 );
 router.get(
   "/:userId",
-  passport.authenticate("jwt", { session: false }),
+  //passport.authenticate("jwt", { session: false }),
   getOrderByid
 );
-router.get("/", getAllOrder);
+router.get("", getAllOrder);
 router.delete(
   "/:userId",
-  passport.authenticate("jwt", { session: false }),
+  //passport.authenticate("jwt", { session: false }),
   deleteOrderById
 );
 export default router;

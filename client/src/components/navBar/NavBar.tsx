@@ -51,23 +51,6 @@ export default function NavBar() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-  /* const handleClose = (event: Event | React.SyntheticEvent) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
-      return;
-    }
-    setOpen(false);
-  };
-  function handleListKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen(false);
-    } else if (event.key === "Escape") {
-      setOpen(false);
-    }
-  } */
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -106,6 +89,8 @@ export default function NavBar() {
     localStorage.removeItem("cart");
     localStorage.removeItem("orderDetails");
     localStorage.removeItem("totalPrice");
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("favorites");
     dispatch(userActions.loginHandler(false));
     navigate("/login");
   };
@@ -193,15 +178,7 @@ export default function NavBar() {
             <IconButton sx={{ color: "inherit" }} component={Link} to="/">
               <img src={car2} alt="car-icon" height="50px" width="50px" />
             </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ fontSize: "25px", display: { xs: "none", sm: "block" } }}>
-              <Box component="span" sx={{ color: "black" }}>
-                Cars
-              </Box>
-            </Typography>
+
             <Box
               component="form"
               sx={{
@@ -219,7 +196,7 @@ export default function NavBar() {
                 id="standard-basic"
                 label="Search..."
                 variant="standard"
-                helperText="Enter your Car Name"
+                helperText="Car Name"
                 onChange={userInputHandler}
                 onKeyDown={keyDownHandler}
               />
@@ -267,86 +244,87 @@ export default function NavBar() {
   }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        color="inherit"
-        sx={{ backgroundColor: "aliceblue", height: "80px" }}>
-        <Toolbar>
-          <IconButton sx={{ color: "inherit" }} component={Link} to="/">
-            <img src={car2} alt="car-icon" height="50px" width="50px" />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ fontSize: "25px", display: { xs: "none", sm: "block" } }}>
-            <Box component="span" sx={{ color: "black" }}>
-              Cars
-            </Box>
-          </Typography>
-          <Box
-            component="form"
-            sx={{
-              p: "2px 4px",
-              display: { xs: "none", sm: "none", md: "flex" },
-              alignItems: "center",
-              justifyContent: "space-between",
-              flex: "1",
-              flexGrow: "1",
-              position: "relative",
-              top: "2px",
-              width: 400,
-            }}>
-            <TextField
-              id="standard-basic"
-              label="Search..."
-              variant="standard"
-              helperText="Enter your Car Name"
-              onChange={userInputHandler}
-              onKeyDown={keyDownHandler}
-            />
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-              <SearchIcon />
+    <div className="navbar">
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          position="static"
+          color="inherit"
+          sx={{ backgroundColor: "aliceblue", height: "80px" }}>
+          <Toolbar>
+            <IconButton sx={{ color: "inherit" }} component={Link} to="/">
+              <img src={car2} alt="car-icon" height="50px" width="50px" />
             </IconButton>
-          </Box>
-
-          <Box sx={{ flexGrow: 1 }} />
-          <IconButton component={Link} to="/cart" color="inherit">
-            <Badge badgeContent={cartState.length} color="error">
-              <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
-          <Box>
-            <div className="navbar-icons">
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-                component={Link}
-                to="/">
-                <Home />
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ fontSize: "25px", display: { xs: "none", sm: "block" } }}>
+              <Box component="span" sx={{ color: "black" }}>
+                Cars
+              </Box>
+            </Typography>
+            <Box
+              component="form"
+              sx={{
+                p: "2px 4px",
+                display: { xs: "none", sm: "none", md: "flex" },
+                alignItems: "center",
+                justifyContent: "space-between",
+                flex: "1",
+                flexGrow: "1",
+                position: "relative",
+                top: "2px",
+                width: 400,
+              }}>
+              <TextField
+                id="standard-basic"
+                label="Search..."
+                variant="standard"
+                helperText="Car Name"
+                onChange={userInputHandler}
+                onKeyDown={keyDownHandler}
+              />
+              <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+                <SearchIcon />
               </IconButton>
-              <Link to="/products">
-                <FormatListBulletedIcon sx={{ color: "ButtonText" }} />
-              </Link>
+            </Box>
+            <Box sx={{ flexGrow: 1 }} />
+            <IconButton component={Link} to="/cart" color="inherit">
+              <Badge badgeContent={cartState.length} color="error">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+            <Box>
+              <div className="navbar-icons">
+                <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                  component={Link}
+                  to="/">
+                  <Home />
+                </IconButton>
+                <Link to="/products">
+                  <FormatListBulletedIcon sx={{ color: "ButtonText" }} />
+                </Link>
 
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit">
-                <AccountCircle />
-              </IconButton>
-            </div>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit">
+                  <AccountCircle />
+                </IconButton>
+              </div>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </Box>
+    </div>
   );
 }

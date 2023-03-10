@@ -35,13 +35,6 @@ const userSlice = createSlice({
     updateUser: (state, action) => {
       state.isUpdate = action.payload;
     },
-
-    //ORDER
-    createOrder: (state, action) => {
-      // const userId = localStorage.getItem("userId");
-      state.order = action.payload;
-      console.log("find call me");
-    },
   },
 });
 export const userActions = userSlice.actions;

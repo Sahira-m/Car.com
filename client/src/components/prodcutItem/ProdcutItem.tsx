@@ -58,9 +58,7 @@ export default function ProdcutItem({ product }: PropType) {
   };
 
   const addToCart = () => {
-    console.log("product", product);
     const dis = dispatch(cartActions.addToCart(product));
-    console.log("disp", dis);
     handleClickCart();
   };
   const addToFavourite = () => {

@@ -10,7 +10,6 @@ import {
   Button,
   Alert,
   Snackbar,
-  styled,
 } from "@mui/material";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import CartItem from "./CartItem";
@@ -24,7 +23,7 @@ import axios from "axios";
 import { cartActions } from "../../redux/slices/cart";
 import { port } from "../../common/port";
 
-function createData(
+/* function createData(
   _id: string,
   productName: string,
   price: number,
@@ -44,7 +43,7 @@ function createData(
     quantity,
     image,
   };
-}
+} */
 export default function CartList() {
   const [open, setOpen] = useState(false);
   const [ordered, setorder] = useState(false);
@@ -88,7 +87,7 @@ export default function CartList() {
     }
   });
 
-  const cartRows = newCartList.map((cart: ProductType) => {
+  /*  const cartRows = newCartList.map((cart: ProductType) => {
     return createData(
       cart._id,
       cart.productName,
@@ -99,10 +98,10 @@ export default function CartList() {
       cart.quantity,
       cart.image
     );
-  });
+  }); */
 
   const checkOut = () => {
-    const token = localStorage.getItem("token");
+    //const token = localStorage.getItem("token");
     try {
       //const userId = localStorage.getItem("userIds");
       if (islogin) {
@@ -121,6 +120,7 @@ export default function CartList() {
           totalPrice: totalPrice.toFixed(2),
         };
         console.log("order", order);
+        // const config = { headers: { Authorization: `Bearer ${token}` } };
         newCartList.length !== 0 &&
           axios.post(url, order).then((res) => {
             localStorage.setItem("orderDetails", JSON.stringify(res.data));
@@ -141,7 +141,6 @@ export default function CartList() {
 
   return (
     <div className="cart-list">
-      <p>Carss</p>
       {newCartList.length === 0 ? (
         <div className="cart-list-warning">
           <Tooltip title="Back to products">

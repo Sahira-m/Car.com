@@ -1,11 +1,11 @@
-.order3 {
+/* .order3 {
   margin-left: 100px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0px;
 }
 /* nows*/
-.order2 {
+/* .order2 {
   margin-left: 100px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -28,4 +28,21 @@
 .total {
   margin-left: 250px;
   font-size: x-large;
+}
+ */
+.order {
+  margin-left: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0px;
+}
+.alert-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 80%;
+  height: 100%;
+  margin-top: 100px;
+  margin-left: 500px;
 }
