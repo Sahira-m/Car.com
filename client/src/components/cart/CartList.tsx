@@ -76,6 +76,7 @@ export default function CartList() {
   console.log("before check out length", newCartList.length);
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
   const islogin = useSelector((state: RootState) => state.user.isLogin);
+  const userDetails = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(cartActions.totalPrice());
@@ -105,13 +106,14 @@ export default function CartList() {
     try {
       //const userId = localStorage.getItem("userIds");
       if (islogin) {
-        const userDetails =
+        /*     const userDetails =
           localStorage.getItem("user") !== null
             ? JSON.parse(localStorage.getItem("user")!)
             : null;
         const uid = userDetails.userData._id;
-        console.log("uid in cart list", uid);
-        const url = `http://localhost:${port}/orders/${userDetails.userData._id}`;
+        console.log("uid in cart list", uid); */
+
+        const url = `http://localhost:${port}/orders/${userDetails._id}`;
         console.log("url is", url);
 
         const totalPrice = Number(localStorage.getItem("totalPrice"));

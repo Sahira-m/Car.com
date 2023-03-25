@@ -7,8 +7,7 @@ import { TextField, Button, IconButton } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
-import { UserType } from "../../common/userType";
-
+import { UpdateUserType } from "../../common/userType";
 import "./UserUpdate.css";
 import { userUpdationThunk } from "../../redux/thunks/userRegistration";
 import { useState } from "react";
@@ -34,7 +33,6 @@ const signUpSchema = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Passwords must match"),
 });
 const initialValues = {
-  _id: "",
   name: "",
   email: "",
   password: "",
@@ -42,12 +40,7 @@ const initialValues = {
 };
 
 export default function UserUpdation() {
-  const userDetails =
-    localStorage.getItem("user") !== null
-      ? JSON.parse(localStorage.getItem("user")!)
-      : null;
-  const email = userDetails.userData.email;
-
+  const userDetails = useSelector((state: RootState) => state.user.user);
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const isUpdate = useSelector((state: RootState) => state.user.isUpdate);
@@ -55,16 +48,17 @@ export default function UserUpdation() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const userUpdate = (user: UserType) => {
+  const userUpdate = (user: UpdateUserType) => {
     if (!user) {
       return;
     }
     if (user) {
-      dispatch(userUpdationThunk(user));
+      console.log("here", user);
+      dispatch(userUpdationThunk(user, userDetails._id));
     }
-    if (isUpdate) {
+    /*  if (isUpdate) {
       navigate("/login");
-    }
+    } */
   };
   const showPasswordHandler1 = () => {
     setShowPassword1(!showPassword1);
@@ -76,9 +70,9 @@ export default function UserUpdation() {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values: UserType) => {
+      onSubmit={(values: UpdateUserType) => {
         console.log(values);
-        values.email = email;
+        values.email = userDetails.email;
         userUpdate(values);
       }}
       validationSchema={signUpSchema}>
@@ -104,7 +98,7 @@ export default function UserUpdation() {
                   name="email"
                   label="Email"
                   onChange={handleChange}
-                  value={email}
+                  value={userDetails.email}
                   InputProps={{
                     readOnly: true,
                   }}

@@ -84,10 +84,7 @@ export default function NavBar() {
     }
   };
   const logoutHandler = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("userIdnew");
     localStorage.removeItem("cart");
-    localStorage.removeItem("orderDetails");
     localStorage.removeItem("totalPrice");
     localStorage.removeItem("userToken");
     localStorage.removeItem("favorites");

@@ -24,7 +24,6 @@ const userSlice = createSlice({
   reducers: {
     getUser: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem("userId", action.payload._id);
     },
     loginHandler: (state, action) => {
       state.isLogin = action.payload;

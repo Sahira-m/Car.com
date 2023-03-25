@@ -10,7 +10,6 @@ const searchSlice = createSlice({
   reducers: {
     getUserInput: (state, action) => {
       state.userInput = action.payload;
-      console.log("user input is", state.userInput);
     },
   },
 });

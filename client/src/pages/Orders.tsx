@@ -9,34 +9,21 @@ export default function OrderPage() {
 
   const orderList1 = useSelector((state: RootState) => state.order.order);
   const orderList2 = useSelector((state: RootState) => state.order.allOrder);
-  console.log("1,", orderList1);
-  console.log("2,", orderList2);
+
+  const userDetails = useSelector((state: RootState) => state.user.user);
   let orderList;
-  const userDetails =
-    localStorage.getItem("user") !== null
-      ? JSON.parse(localStorage.getItem("user")!)
-      : null;
-  if (userDetails.userData.email == "Admin@gmail.com") {
+
+  if (userDetails.email == "Admin@gmail.com") {
     orderList = orderList2;
   } else {
     orderList = orderList1;
   }
   const dispatch = useDispatch<AppDispatch>();
 
-  /*  useEffect(() => {
-    if ((userDetails.userData.email = "Admin")) {
-      console.log("in orders", userDetails.userData.email);
-      dispatch(getAllOrderThunk);
-    } else {
-      console.log("in orders else", userDetails.userData.email);
-      dispatch(OrderThunk(userDetails.userData._id));
-      dispatch(getAllOrderThunk);
-    }
-  }, [userDetails.userData.email]); */
   useEffect(() => {
     dispatch(getAllOrderThunk());
-    dispatch(OrderThunk(userDetails.userData._id));
-  }, [userDetails.userData.email]);
+    dispatch(OrderThunk(userDetails._id));
+  }, [userDetails.email]);
   return (
     <div className="order">
       {orderList.length > 0 ? (

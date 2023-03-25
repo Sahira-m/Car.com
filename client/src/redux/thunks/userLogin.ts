@@ -16,12 +16,10 @@ export function userLoginThunk(user: InputType) {
         const token = res.data.token;
         localStorage.setItem("userToken", token);
 
-        if (res.status === 200) {
-          dispatch(userActions.getUser);
+        if (res.data.userData) {
+          dispatch(userActions.getUser(res.data.userData));
           dispatch(userActions.loginHandler(true));
-          localStorage.setItem("user", JSON.stringify(res.data));
-          const userId = res.data.userData._id;
-          localStorage.setItem("userIdnew", userId);
+
           console.log(res.status, "status in thunk login");
         }
       });

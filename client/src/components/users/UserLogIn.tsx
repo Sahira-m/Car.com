@@ -41,6 +41,7 @@ export default function UserLogIn() {
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
+  const userDetails = useSelector((state: RootState) => state.user.user);
   const userLogin = (user: InputType) => {
     if (!user) {
       handleClose();
@@ -54,6 +55,8 @@ export default function UserLogIn() {
     if (isLogin) {
       navigate("/");
       console.log("login", isLogin);
+
+      console.log("user details        12555", userDetails);
     }
   };
   const handleClose = () => {

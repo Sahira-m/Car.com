@@ -6,9 +6,9 @@ import axios from "axios";
 const Port = port;
 
 export function OrderThunk(userId: string | undefined) {
-  // const token = localStorage.getItem("userToken");
+  const token = localStorage.getItem("userToken");
 
-  //const config = { headers: { Authorization: `Bearer ${token}` } };
+  const config = { headers: { Authorization: `Bearer ${token}` } };
   const url = `http://localhost:${Port}/orders/${userId}`;
 
   return async (dispatch: AppDispatch) => {

@@ -62,7 +62,7 @@ export default function UserRegistration() {
   const showPasswordHandler2 = () => {
     setShowPassword2(!showPassword2);
   };
-  //self code
+
   return (
     <Formik
       initialValues={initialValues}
