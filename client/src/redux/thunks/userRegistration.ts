@@ -26,17 +26,21 @@ export function userRegistrationThunk(user: UserType) {
 }
 
 //new code for updates
-export function userUpdationThunk(user: UpdateUserType, userId: string) {
+export function userUpdationThunk(
+  user: UpdateUserType,
+  userId: string,
+  token: string
+) {
   const url = `http://localhost:${Port}/users/${userId}`;
   console.log("url is for thunk updates", url);
   console.log("values for update", user);
   return async (dispatch: AppDispatch) => {
     try {
-      const token = localStorage.getItem("userToken");
+      //const token = localStorage.getItem("userToken");
 
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
-      await axios.put(url, user).then((res) => {
+      await axios.put(url, user, config).then((res) => {
         if (res.status === 200) {
           dispatch(userActions.updateUser(true));
           console.log("1234", res.data.data);

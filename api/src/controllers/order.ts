@@ -6,18 +6,14 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 // dotenv import
 import dotenv from "dotenv";
-
+import generateToken from "../../utils/generateToken";
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET as string;
 export const makeNewOrder = async (request: Request, response: Response) => {
   try {
     const { productId, quantity, address, total, isDelivered } = request.body;
     //token
-    const token = jwt.sign(
-      { email: request.body.email, id: request.params.userId },
-      JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    // const token = generateToken(request.body.email, request.params.userId);
     const users = await User.findById(request.params.userId);
 
     if (!users) {
@@ -45,11 +41,7 @@ export const getOrderByid = async (request: Request, response: Response) => {
   try {
     const userId = request.params.userId as unknown as mongoose.ObjectId;
     //token
-    const token = jwt.sign(
-      { email: request.body.email, id: request.params.userId },
-      JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    //const token = generateToken(request.body.email, request.params.userId);
     console.log(request.params.userId, "get uid");
     const getAlls = await OrderService.getOrderByID(userId);
 

@@ -9,17 +9,16 @@ export function userLoginThunk(user: InputType) {
   console.log("url is", url);
   return async (dispatch: AppDispatch) => {
     try {
-      //const config = { headers: { "Content-Type": "application/json" } };
       await axios.post(url, user).then((res) => {
         console.log("user is", user);
         //token take and set now
         const token = res.data.token;
-        localStorage.setItem("userToken", token);
+        //localStorage.setItem("userToken", token);
 
         if (res.data.userData) {
           dispatch(userActions.getUser(res.data.userData));
           dispatch(userActions.loginHandler(true));
-
+          dispatch(userActions.getToken(token));
           console.log(res.status, "status in thunk login");
         }
       });

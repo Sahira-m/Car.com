@@ -8,6 +8,7 @@ type InitialType = {
   isRegister: boolean;
   order: OrderType[];
   isUpdate: boolean;
+  token: string;
 };
 
 const initialState: InitialType = {
@@ -16,6 +17,7 @@ const initialState: InitialType = {
   isRegister: false,
   order: [],
   isUpdate: false,
+  token: "",
 };
 
 const userSlice = createSlice({
@@ -33,6 +35,9 @@ const userSlice = createSlice({
     },
     updateUser: (state, action) => {
       state.isUpdate = action.payload;
+    },
+    getToken: (state, action) => {
+      state.token = action.payload;
     },
   },
 });

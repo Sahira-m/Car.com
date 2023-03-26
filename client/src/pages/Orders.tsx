@@ -6,14 +6,13 @@ import { OrderThunk, getAllOrderThunk } from "../redux/thunks/order";
 import OrderList from "../components/order/OrderList";
 export default function OrderPage() {
   // state
-
   const orderList1 = useSelector((state: RootState) => state.order.order);
   const orderList2 = useSelector((state: RootState) => state.order.allOrder);
-
+  const token = useSelector((state: RootState) => state.user.token);
   const userDetails = useSelector((state: RootState) => state.user.user);
   let orderList;
 
-  if (userDetails.email == "Admin@gmail.com") {
+  if (userDetails.email === "Admin@gmail.com") {
     orderList = orderList2;
   } else {
     orderList = orderList1;
@@ -22,7 +21,7 @@ export default function OrderPage() {
 
   useEffect(() => {
     dispatch(getAllOrderThunk());
-    dispatch(OrderThunk(userDetails._id));
+    dispatch(OrderThunk(userDetails._id, token));
   }, [userDetails.email]);
   return (
     <div className="order">

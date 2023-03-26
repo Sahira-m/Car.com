@@ -77,6 +77,7 @@ export default function CartList() {
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
   const islogin = useSelector((state: RootState) => state.user.isLogin);
   const userDetails = useSelector((state: RootState) => state.user.user);
+  const token = useSelector((state: RootState) => state.user.token);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(cartActions.totalPrice());
@@ -88,48 +89,23 @@ export default function CartList() {
     }
   });
 
-  /*  const cartRows = newCartList.map((cart: ProductType) => {
-    return createData(
-      cart._id,
-      cart.productName,
-      cart.price,
-      cart.inStock,
-      cart.color,
-      cart.category,
-      cart.quantity,
-      cart.image
-    );
-  }); */
-
   const checkOut = () => {
-    //const token = localStorage.getItem("token");
     try {
-      //const userId = localStorage.getItem("userIds");
       if (islogin) {
-        /*     const userDetails =
-          localStorage.getItem("user") !== null
-            ? JSON.parse(localStorage.getItem("user")!)
-            : null;
-        const uid = userDetails.userData._id;
-        console.log("uid in cart list", uid); */
-
+        const config = { headers: { Authorization: `Bearer ${token}` } };
         const url = `http://localhost:${port}/orders/${userDetails._id}`;
-        console.log("url is", url);
-
         const totalPrice = Number(localStorage.getItem("totalPrice"));
         const order = {
           productOrder: cartLists,
           totalPrice: totalPrice.toFixed(2),
         };
-        console.log("order", order);
-        // const config = { headers: { Authorization: `Bearer ${token}` } };
+
         newCartList.length !== 0 &&
-          axios.post(url, order).then((res) => {
-            localStorage.setItem("orderDetails", JSON.stringify(res.data));
+          axios.post(url, order, config).then((res) => {
+            //localStorage.setItem("orderDetails", JSON.stringify(res.data));
             console.log(res.data, "order resdata");
           });
         //new code
-
         handleClick();
         setorder(true);
 

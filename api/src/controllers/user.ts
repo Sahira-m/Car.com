@@ -1,11 +1,12 @@
 import { Request, Response } from "Express";
-import User from "../models/User";
+import User, { UserDocument } from "../models/User";
 import UserService from "../services/users";
 import jwt from "jsonwebtoken";
 // dotenv import
 import dotenv from "dotenv";
 //hash code
 import bcrypt from "bcrypt";
+import generateToken from "../../utils/generateToken";
 const saltRounds = 10;
 export const makeNewUser = async (request: Request, response: Response) => {
   try {
@@ -43,7 +44,7 @@ export const makeNewUser = async (request: Request, response: Response) => {
 };
 dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
+//const JWT_SECRET = process.env.JWT_SECRET as string;
 export const getUserByEmail = async (request: Request, response: Response) => {
   try {
     const userData = await UserService.getUserByEmail(request.body.email);
@@ -62,11 +63,12 @@ export const getUserByEmail = async (request: Request, response: Response) => {
       return;
     }
     //TOKEN
-    const token = jwt.sign(
+    const token = generateToken(userData._id, request.body.email);
+    /*    const token = jwt.sign(
       { email: request.body.email, id: userData._id },
       JWT_SECRET,
       { expiresIn: "1h" }
-    );
+    ); */
     response.status(200).json({ userData, token });
   } catch (error) {
     console.log(error);
@@ -75,7 +77,6 @@ export const getUserByEmail = async (request: Request, response: Response) => {
 
 export const updateUserById = async (request: Request, response: Response) => {
   try {
-    console.log("iam h ere1");
     //new code for encode password
     const { name, email, password } = request.body;
     console.log("update user2", request.body);

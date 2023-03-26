@@ -44,9 +44,8 @@ export default function UserUpdation() {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const isUpdate = useSelector((state: RootState) => state.user.isUpdate);
-
+  const token = useSelector((state: RootState) => state.user.token);
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
 
   const userUpdate = (user: UpdateUserType) => {
     if (!user) {
@@ -54,7 +53,7 @@ export default function UserUpdation() {
     }
     if (user) {
       console.log("here", user);
-      dispatch(userUpdationThunk(user, userDetails._id));
+      dispatch(userUpdationThunk(user, userDetails._id, token));
     }
     /*  if (isUpdate) {
       navigate("/login");

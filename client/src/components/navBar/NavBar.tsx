@@ -32,6 +32,7 @@ import car2 from "../../assets/newcar4.jpg";
 import "./NavBar.css";
 import Home from "@mui/icons-material/Home";
 import { userActions } from "../../redux/slices/user";
+import FavouriteList from "../favourites/FavouriteList";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -89,7 +90,8 @@ export default function NavBar() {
     localStorage.removeItem("userToken");
     localStorage.removeItem("favorites");
     dispatch(userActions.loginHandler(false));
-    navigate("/login");
+    localStorage.clear();
+    navigate("/");
   };
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -133,6 +135,9 @@ export default function NavBar() {
           Register
         </MenuItem>
       </Link>
+      <Button onClick={logoutHandler} sx={{ color: "inherit" }}>
+        Logout
+      </Button>
     </Menu>
   );
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -285,12 +290,19 @@ export default function NavBar() {
                 <SearchIcon />
               </IconButton>
             </Box>
-            <Box sx={{ flexGrow: 1 }} />
+            <Box />
             <IconButton component={Link} to="/cart" color="inherit">
               <Badge badgeContent={cartState.length} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
+            <Box>
+              <IconButton color="inherit" component={Link} to="/favourite">
+                <Badge badgeContent={favState.length} color="error">
+                  <FavoriteIcon />
+                </Badge>
+              </IconButton>
+            </Box>
             <Box>
               <div className="navbar-icons">
                 <IconButton
