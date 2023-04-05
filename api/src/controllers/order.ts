@@ -39,12 +39,7 @@ export const makeNewOrder = async (request: Request, response: Response) => {
 
 export const getOrderByid = async (request: Request, response: Response) => {
   try {
-    const userId = request.params.userId as unknown as mongoose.ObjectId;
-    //token
-    //const token = generateToken(request.body.email, request.params.userId);
-    console.log(request.params.userId, "get uid");
-    const getAlls = await OrderService.getOrderByID(userId);
-
+    const getAlls = await OrderService.getOrderByID(request.params.userId);
     response.json(getAlls);
   } catch (error) {
     console.log(error);
@@ -53,14 +48,13 @@ export const getOrderByid = async (request: Request, response: Response) => {
 
 export const deleteOrderById = async (request: Request, response: Response) => {
   try {
-    const userId = request.params.userId as unknown as mongoose.ObjectId;
     //token
     const token = jwt.sign(
       { email: request.body.email, id: request.params.userId },
       JWT_SECRET,
       { expiresIn: "1h" }
     );
-    const getOrderByID = await OrderService.getOrderByID(userId);
+    const getOrderByID = await OrderService.getOrderByID(request.params.userId);
     if (getOrderByID) {
       const deleteProdct = await OrderService.deleteOrderById(
         request.params.userId

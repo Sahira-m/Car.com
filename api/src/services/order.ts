@@ -6,16 +6,13 @@ const createOrder = async (order: OrderDocument): Promise<OrderDocument> => {
   return order.save();
 };
 
-const getOrderByID = async (
-  Id: mongoose.ObjectId
-): Promise<OrderDocument[] | null> => {
+const getOrderByID = async (Id: string): Promise<OrderDocument[] | null> => {
   return Order.find({ userId: Id });
 };
 //for admin only
 const getOrderAll = async (): Promise<OrderDocument[] | null> => {
-  const aa = Order.find();
-  console.log("all order", aa);
-  return aa;
+  const allOrder = Order.find();
+  return allOrder;
 };
 
 const deleteOrderById = async (id: string): Promise<OrderDocument | null> => {

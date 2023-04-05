@@ -12,7 +12,7 @@ import {
 const router = Router();
 router.post("", createProduct);
 router.get("", getProductAll);
-router.get("/:id", getProductById);
-router.delete("/:id", deleteProductById);
-router.put("/:pid", updateProductByID);
+router.get("/:productId", getProductById);
+router.delete("/:productId", deleteProductById);
+router.put("/:productId", updateProductByID);
 export default router;

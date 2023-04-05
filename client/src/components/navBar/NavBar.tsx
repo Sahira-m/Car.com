@@ -5,10 +5,7 @@ import { useDispatch } from "react-redux";
 import { Box, IconButton, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
 import { Badge } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,7 +29,6 @@ import car2 from "../../assets/newcar4.jpg";
 import "./NavBar.css";
 import Home from "@mui/icons-material/Home";
 import { userActions } from "../../redux/slices/user";
-import FavouriteList from "../favourites/FavouriteList";
 
 export default function NavBar() {
   const navigate = useNavigate();

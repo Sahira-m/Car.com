@@ -41,7 +41,7 @@ export const getProductAll = async (req: Request, res: Response) => {
 };
 export const getProductById = async (req: Request, res: Response) => {
   try {
-    const getProdct = await ProductService.getProductByID(req.params.id);
+    const getProdct = await ProductService.getProductByID(req.params.productId);
     res.json(getProdct);
   } catch (error) {
     console.log(error);
@@ -50,10 +50,12 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const deleteProductById = async (req: Request, res: Response) => {
   try {
-    const getProdctById = await ProductService.getProductByID(req.params.id);
+    const getProdctById = await ProductService.getProductByID(
+      req.params.productId
+    );
     if (getProdctById) {
       const deleteProdct = await ProductService.deleteProductById(
-        req.params.id
+        req.params.productId
       );
 
       const getProdct = await ProductService.getProductAll();
@@ -71,7 +73,7 @@ export const updateProductByID = async (
   try {
     console.log("updates", request.body);
     const updateProduct = await ProductService.updateProduct(
-      request.params.pid,
+      request.params.productId,
       request.body
     );
     response.json(updateProduct);
